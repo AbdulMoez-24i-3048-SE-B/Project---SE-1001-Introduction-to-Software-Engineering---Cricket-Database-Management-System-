@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cricket Database | Home</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="teamDetails.html">Team Details</a>
+      <a href="matchHistory.html">Match History</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Welcome to Cricket Database</h1>
+    <p style="color: var(--muted); margin-bottom: 30px;">
+      Manage cricket teams, players, and match records — all in one place.
+    </p>
+
+    <div class="card" style="text-align:center;">
+      <h2>📋 Teams</h2>
+      <p>View, add, or manage all cricket teams.</p>
+      <button class="btn" onclick="location.href='teams.html'">Open Teams</button>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <h2>👥 Team Details</h2>
+      <p>See player info, stats, and overall team performance.</p>
+      <button class="btn" onclick="location.href='teamDetails.html'">View Details</button>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <h2>📊 Match History</h2>
+      <p>Explore past matches and analyze player performance.</p>
+      <button class="btn" onclick="location.href='matchHistory.html'">View Matches</button>
+    </div>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    © 2025 Cricket DB | Powered by Firebase
+  </footer>
+</body>
+</html>

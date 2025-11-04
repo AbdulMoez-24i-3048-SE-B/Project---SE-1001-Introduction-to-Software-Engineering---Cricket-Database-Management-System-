@@ -1,0 +1,85 @@
+/* ===== styles.css ===== */
+:root {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --accent: #0ea5a4;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: #334155;
+}
+body {
+  font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  background: var(--bg-card);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+nav a {
+  color: var(--text);
+  margin-right: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+nav a.active {
+  color: var(--accent);
+}
+main {
+  padding: 20px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn.small {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+input, select, textarea {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+  font-size: 14px;
+}
+.form-row {
+  margin-bottom: 10px;
+}
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+  color: #f87171;
+}
