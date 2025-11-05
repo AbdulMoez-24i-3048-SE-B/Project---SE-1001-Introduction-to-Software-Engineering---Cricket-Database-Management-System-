@@ -6,6 +6,7 @@
   --text: #f8fafc;
   --muted: #94a3b8;
   --border: #334155;
+  --primary-hover: #15d5d5;
 }
 body {
   font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial;
@@ -26,19 +27,29 @@ nav a {
   margin-right: 20px;
   text-decoration: none;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 nav a.active {
   color: var(--accent);
+}
+nav a:hover{
+  color:var(--primary-hover)
 }
 main {
   padding: 20px;
 }
 .card {
+  width: 80%; /* Slightly smaller width */
+  max-width: 500px;
+  margin: 20px auto;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: 0px 10px 30px rgba(1, 1, 1, 1);
 }
 .btn {
   background: var(--accent);
@@ -48,6 +59,12 @@ main {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  color:#1c2843;
+  background: var(--primary-hover);
+  transform: scale(1.05);
 }
 .btn.small {
   padding: 6px 10px;
