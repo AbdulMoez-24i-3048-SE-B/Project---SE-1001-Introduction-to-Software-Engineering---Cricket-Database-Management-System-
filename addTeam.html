@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Add Team | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="teamDetails.html">Team Details</a>
+      <a href="matchHistory.html">Match History</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Add a New Team</h1>
+    <p style="color:var(--muted);margin-bottom:20px;">
+      Enter details for the new cricket team below.
+    </p>
+
+    <div class="card" style="max-width:500px;margin:auto;">
+      <form id="teamForm">
+        <div class="form-row">
+          <label for="teamName">Team Name:</label>
+          <input type="text" id="teamName" placeholder="Enter team name" required />
+        </div>
+        <div class="form-row">
+          <label for="coachName">Coach Name:</label>
+          <input type="text" id="coachName" placeholder="Enter coach name" />
+        </div>
+        <div class="form-row">
+          <label for="country">Country:</label>
+          <input type="text" id="country" placeholder="Enter team country" />
+        </div>
+        <div class="form-row" style="text-align:center;margin-top:20px;">
+          <button type="submit" class="btn">Add Team</button>
+          <button type="button" class="btn small" onclick="location.href='teams.html'" style="margin-left:10px;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    © 2025 Cricket DB
+  </footer>
+
+  <script type="module" src="js/add-team.js"></script>
+</body>
+</html>
