@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teams | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    main {
+      padding: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    #teamList {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .team-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .team-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .team-created {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #14b8a6;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html" class="active">Teams</a>
+      <a href="teamDetails.html">Team Details</a>
+      <a href="matchHistory.html">Match History</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Teams</h1>
+    <p style="color:var(--muted);margin-bottom:20px;">
+      Manage your cricket teams. Click <strong>+ Add Team</strong> to create a new one.
+    </p>
+    <button class="btn" id="addTeam">+ Add Team</button>
+
+    <div id="teamList"></div>
+  </main>
+
+  <footer>
+    © 2025 Cricket DB
+  </footer>
+
+  <script type="module" src="js/teams.js"></script>
+</body>
+</html>
