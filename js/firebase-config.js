@@ -4,7 +4,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDtEQEkRjymn2uTeozItt-jJW72EpgHHcM,
+  apiKey: "AIzaSyDtEQEkRjymn2uTeozItt-jJW72EpgHHcM",
   authDomain: "cricket-db-840fd.firebaseapp.com",
   projectId: "cricket-db-840fd",
   storageBucket: "cricket-db-840fd.firebasestorage.app",
