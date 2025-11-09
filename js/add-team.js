@@ -8,15 +8,18 @@ teamForm.addEventListener("submit", async (e) => {
 
   const teamName = document.getElementById("teamName").value.trim();
   const coachName = document.getElementById("coachName").value.trim();
-  const country = document.getElementById("country").value.trim();
+  const ranking = document.getElementById("ranking").value;
 
-  if (!teamName) return;
+  if (!teamName) {
+    alert("Team name is required!");
+    return;
+  }
 
   try {
     await addDoc(collection(db, "teams"), {
       teamName,
       coachName,
-      country,
+      ranking: ranking ? parseInt(ranking) : null,
       createdAt: Timestamp.now()
     });
     alert("Team added!");
