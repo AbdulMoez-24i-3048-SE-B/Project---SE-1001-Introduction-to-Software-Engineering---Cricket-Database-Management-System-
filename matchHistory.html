@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Match History | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="teamDetails.html">Team Details</a>
+      <a href="matchHistory.html" class="active">Match History</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 id="playerTitle">Loading Player...</h1>
+    <button class="btn" id="addMatch">+ Add Match</button>
+    <div id="matchList" style="margin-top:20px;"></div>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    © 2025 Cricket DB
+  </footer>
+
+  <script type="module" src="js/match-history.js"></script>
+</body>
+</html>

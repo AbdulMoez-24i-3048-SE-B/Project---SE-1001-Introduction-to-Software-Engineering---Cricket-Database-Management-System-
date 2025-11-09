@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Team Details | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+  #playerList {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .player-card {
+    padding: 10px;
+    font-size: 0.9rem;
+    padding-left: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    position: relative;
+    overflow: visible;
+  }
+  .menu {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 120px;
+    z-index: 1000;
+  }
+  .menu > div {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .menu > div:hover {
+    background: var(--border);
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="matchHistory.html">Match History</a>
+      <a href="credits.html">Credits</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 id="teamTitle">Loading Team...</h1>
+      <div id="teamInfo" class="card" style="max-width:500px; margin-bottom:20px;"></div>
+    <p style="color:var(--muted);margin-bottom:20px;">
+      View players in the team. Click <strong>+ Add Player</strong> to create a new player.
+    </p>
+    <button class="btn" id="addPlayer">+ Add Player</button>
+    <div id="playerList"></div>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    @ 2025 Cricket DB | Powered by Firebase 🔥
+  </footer>
+
+  <script type="module" src="js/team-details.js"></script>
+</body>
+</html>

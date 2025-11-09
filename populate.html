@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Populate Teams</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="matchHistory.html">Match History</a>
+      <a href="credits.html">Credits</a>
+    </nav>
+  </header>
+  <h1 style="padding-left: 100px;">Populate Firebase Teams</h1>
+<button id="runBtn" class="btn" style="position: relative; top: 0px; left: 100px;">
+  Add Teams & Players
+</button>
+
+<pre style="padding-left: 100px;" id="log"></pre>
+
+<script type="module">
+  import { db } from "./js/firebase-config.js";
+  import { doc, setDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const logEl = document.getElementById("log");
+  const runBtn = document.getElementById("runBtn");
+
+const teamsData = [
+  {
+    id: "pakistan",
+    teamName: "Pakistan",
+    coachName: "Mike Hesson",
+    ranking: 1,
+    players: [
+      { name: "Babar Azam", handType: "Right", role: "Batsman", average: 56.0, strikeRate: 88.5, score: 125, bowlerType: "" },
+      { name: "Shaheen Afridi", handType: "Left", role: "Bowler", average: 18.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Shadab Khan", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 92.0, score: 76, bowlerType: "Spinner" },
+      { name: "Mohammad Rizwan", handType: "Right", role: "Wicketkeeper", average: 50.0, strikeRate: 89.0, score: 104, bowlerType: "" },
+      { name: "Fakhar Zaman", handType: "Left", role: "Batsman", average: 41.0, strikeRate: 88.0, score: 95, bowlerType: "" },
+      { name: "Imad Wasim", handType: "Left", role: "Allrounder", average: 30.0, strikeRate: 85.0, score: 60, bowlerType: "Spinner" },
+      { name: "Haris Rauf", handType: "Right", role: "Bowler", average: 20.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Mohammad Nawaz", handType: "Left", role: "Allrounder", average: 28.0, strikeRate: 75.0, score: 45, bowlerType: "Spinner" },
+      { name: "Haider Ali", handType: "Right", role: "Batsman", average: 35.0, strikeRate: 92.0, score: 70, bowlerType: "" },
+      { name: "Hasan Ali", handType: "Right", role: "Bowler", average: 19.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Sarfaraz Ahmed", handType: "Right", role: "Wicketkeeper", average: 38.0, strikeRate: 80.0, score: 82, bowlerType: "" }
+    ]
+  },
+  {
+    id: "australia",
+    teamName: "Australia",
+    coachName: "Andrew McDonald",
+    ranking: 3,
+    players: [
+      { name: "David Warner", handType: "Left", role: "Batsman", average: 48.0, strikeRate: 95.0, score: 112, bowlerType: "" },
+      { name: "Pat Cummins", handType: "Right", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Glenn Maxwell", handType: "Right", role: "Allrounder", average: 35.0, strikeRate: 130.0, score: 67, bowlerType: "Spinner" },
+      { name: "Aaron Finch", handType: "Left", role: "Batsman", average: 42.0, strikeRate: 90.0, score: 150, bowlerType: "" },
+      { name: "Steve Smith", handType: "Right", role: "Batsman", average: 55.0, strikeRate: 85.0, score: 120, bowlerType: "" },
+      { name: "Mitchell Starc", handType: "Left", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Josh Hazlewood", handType: "Right", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Marcus Stoinis", handType: "Right", role: "Allrounder", average: 33.0, strikeRate: 110.0, score: 70, bowlerType: "Medium" },
+      { name: "Alex Carey", handType: "Right", role: "Wicketkeeper", average: 40.0, strikeRate: 88.0, score: 80, bowlerType: "" },
+      { name: "Cameron Green", handType: "Right", role: "Allrounder", average: 36.0, strikeRate: 95.0, score: 60, bowlerType: "Medium" },
+      { name: "Mitchell Marsh", handType: "Right", role: "Allrounder", average: 34.0, strikeRate: 100.0, score: 75, bowlerType: "Medium" }
+    ]
+  },
+  {
+    id: "england",
+    teamName: "England",
+    coachName: "Matthew Mott",
+    ranking: 4,
+    players: [
+      { name: "Joe Root", handType: "Right", role: "Batsman", average: 50.0, strikeRate: 87.0, score: 130, bowlerType: "" },
+      { name: "Jonny Bairstow", handType: "Right", role: "Batsman", average: 45.0, strikeRate: 90.0, score: 115, bowlerType: "" },
+      { name: "Ben Stokes", handType: "Left", role: "Allrounder", average: 42.0, strikeRate: 85.0, score: 100, bowlerType: "Medium" },
+      { name: "Jos Buttler", handType: "Right", role: "Wicketkeeper", average: 48.0, strikeRate: 125.0, score: 140, bowlerType: "" },
+      { name: "Jofra Archer", handType: "Right", role: "Bowler", average: 20.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Chris Woakes", handType: "Right", role: "Allrounder", average: 30.0, strikeRate: 78.0, score: 60, bowlerType: "Medium" },
+      { name: "Mark Wood", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Sam Curran", handType: "Left", role: "Allrounder", average: 28.0, strikeRate: 85.0, score: 55, bowlerType: "Medium" },
+      { name: "Adil Rashid", handType: "Right", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Spinner" },
+      { name: "Dan Lawrence", handType: "Right", role: "Batsman", average: 36.0, strikeRate: 82.0, score: 70, bowlerType: "" },
+      { name: "Zak Crawley", handType: "Right", role: "Batsman", average: 38.0, strikeRate: 85.0, score: 80, bowlerType: "" }
+    ]
+  },
+  {
+    id: "india",
+    teamName: "India",
+    coachName: "Rahul Dravid",
+    ranking: 2,
+    players: [
+      { name: "Virat Kohli", handType: "Right", role: "Batsman", average: 57.0, strikeRate: 93.2, score: 183, bowlerType: "" },
+      { name: "Rohit Sharma", handType: "Right", role: "Batsman", average: 49.0, strikeRate: 88.0, score: 264, bowlerType: "" },
+      { name: "Jasprit Bumrah", handType: "Right", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Ravindra Jadeja", handType: "Left", role: "Allrounder", average: 32.0, strikeRate: 81.0, score: 87, bowlerType: "Spinner" },
+      { name: "KL Rahul", handType: "Right", role: "Batsman", average: 45.0, strikeRate: 92.0, score: 90, bowlerType: "" },
+      { name: "Shreyas Iyer", handType: "Right", role: "Batsman", average: 40.0, strikeRate: 85.0, score: 80, bowlerType: "" },
+      { name: "Hardik Pandya", handType: "Right", role: "Allrounder", average: 38.0, strikeRate: 110.0, score: 70, bowlerType: "Medium" },
+      { name: "Rishabh Pant", handType: "Left", role: "Wicketkeeper", average: 46.0, strikeRate: 115.0, score: 95, bowlerType: "" },
+      { name: "Mohammed Shami", handType: "Right", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Bhuvneshwar Kumar", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Medium" },
+      { name: "Yuzvendra Chahal", handType: "Right", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Spinner" }
+    ]
+  },
+  {
+    id: "newzealand",
+    teamName: "New Zealand",
+    coachName: "Gary Stead",
+    ranking: 5,
+    players: [
+      { name: "Kane Williamson", handType: "Right", role: "Batsman", average: 51.0, strikeRate: 85.0, score: 120, bowlerType: "" },
+      { name: "Ross Taylor", handType: "Right", role: "Batsman", average: 46.0, strikeRate: 82.0, score: 100, bowlerType: "" },
+      { name: "Trent Boult", handType: "Left", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Tim Southee", handType: "Right", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Martin Guptill", handType: "Right", role: "Batsman", average: 44.0, strikeRate: 87.0, score: 90, bowlerType: "" },
+      { name: "Colin de Grandhomme", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 90.0, score: 70, bowlerType: "Medium" },
+      { name: "Henry Nicholls", handType: "Right", role: "Batsman", average: 42.0, strikeRate: 83.0, score: 80, bowlerType: "" },
+      { name: "Mitchell Santner", handType: "Left", role: "Allrounder", average: 28.0, strikeRate: 75.0, score: 50, bowlerType: "Spinner" },
+      { name: "Tom Latham", handType: "Left", role: "Wicketkeeper", average: 40.0, strikeRate: 80.0, score: 65, bowlerType: "" },
+      { name: "Matt Henry", handType: "Right", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Ish Sodhi", handType: "Right", role: "Bowler", average: 26.0, strikeRate: 0, score: 0, bowlerType: "Spinner" }
+    ]
+  },
+  {
+    id: "southafrica",
+    teamName: "South Africa",
+    coachName: "Shukri Conrad",
+    ranking: 6,
+    players: [
+      { name: "Temba Bavuma", handType: "Right", role: "Batsman", average: 42.0, strikeRate: 85.0, score: 95, bowlerType: "" },
+      { name: "Quinton de Kock", handType: "Left", role: "Wicketkeeper", average: 48.0, strikeRate: 92.0, score: 120, bowlerType: "" },
+      { name: "Kagiso Rabada", handType: "Right", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Anrich Nortje", handType: "Right", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "David Miller", handType: "Right", role: "Batsman", average: 38.0, strikeRate: 100.0, score: 70, bowlerType: "" },
+      { name: "Rassie van der Dussen", handType: "Right", role: "Batsman", average: 44.0, strikeRate: 87.0, score: 80, bowlerType: "" },
+      { name: "Lungi Ngidi", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Andile Phehlukwayo", handType: "Left", role: "Allrounder", average: 30.0, strikeRate: 82.0, score: 60, bowlerType: "Medium" },
+      { name: "Marco Jansen", handType: "Left", role: "Allrounder", average: 28.0, strikeRate: 78.0, score: 50, bowlerType: "Fast" },
+      { name: "Reeza Hendricks", handType: "Right", role: "Batsman", average: 36.0, strikeRate: 80.0, score: 65, bowlerType: "" },
+      { name: "Keshav Maharaj", handType: "Right", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Spinner" }
+    ]
+  },
+  {
+    id: "westindies",
+    teamName: "West Indies",
+    coachName: "Phil Simmons",
+    ranking: 7,
+    players: [
+      { name: "Nicholas Pooran", handType: "Left", role: "Wicketkeeper", average: 41.0, strikeRate: 95.0, score: 80, bowlerType: "" },
+      { name: "Shai Hope", handType: "Right", role: "Batsman", average: 46.0, strikeRate: 85.0, score: 90, bowlerType: "" },
+      { name: "Jason Holder", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 80.0, score: 70, bowlerType: "Medium" },
+      { name: "Roston Chase", handType: "Right", role: "Allrounder", average: 34.0, strikeRate: 75.0, score: 65, bowlerType: "Medium" },
+      { name: "Andre Russell", handType: "Right", role: "Allrounder", average: 28.0, strikeRate: 120.0, score: 60, bowlerType: "Fast" },
+      { name: "Oshane Thomas", handType: "Right", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Alzarri Joseph", handType: "Right", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Fabian Allen", handType: "Left", role: "Allrounder", average: 27.0, strikeRate: 85.0, score: 55, bowlerType: "Spinner" },
+      { name: "Shamarh Brooks", handType: "Right", role: "Batsman", average: 35.0, strikeRate: 82.0, score: 70, bowlerType: "" },
+      { name: "Kyle Mayers", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 88.0, score: 60, bowlerType: "Medium" },
+      { name: "Akeal Hosein", handType: "Left", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Spinner" }
+    ]
+  },
+  {
+    id: "sri-lanka",
+    teamName: "Sri Lanka",
+    coachName: "Chris Silverwood",
+    ranking: 8,
+    players: [
+      { name: "Dasun Shanaka", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 90.0, score: 70, bowlerType: "Medium" },
+      { name: "Kusal Perera", handType: "Right", role: "Wicketkeeper", average: 45.0, strikeRate: 100.0, score: 95, bowlerType: "" },
+      { name: "Dinesh Chandimal", handType: "Right", role: "Batsman", average: 40.0, strikeRate: 82.0, score: 80, bowlerType: "" },
+      { name: "Wanindu Hasaranga", handType: "Right", role: "Allrounder", average: 33.0, strikeRate: 90.0, score: 65, bowlerType: "Spinner" },
+      { name: "Lahiru Kumara", handType: "Right", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Dushmantha Chameera", handType: "Right", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Pathum Nissanka", handType: "Right", role: "Batsman", average: 38.0, strikeRate: 85.0, score: 75, bowlerType: "" },
+      { name: "Charith Asalanka", handType: "Right", role: "Batsman", average: 36.0, strikeRate: 88.0, score: 65, bowlerType: "" },
+      { name: "Chamika Karunaratne", handType: "Right", role: "Allrounder", average: 28.0, strikeRate: 80.0, score: 50, bowlerType: "Medium" },
+      { name: "Matheesha Pathirana", handType: "Right", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Pramod Madushan", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Medium" }
+    ]
+  },
+  {
+    id: "bangladesh",
+    teamName: "Bangladesh",
+    coachName: "Russell Domingo",
+    ranking: 9,
+    players: [
+      { name: "Shakib Al Hasan", handType: "Left", role: "Allrounder", average: 38.0, strikeRate: 80.0, score: 90, bowlerType: "Spinner" },
+      { name: "Mushfiqur Rahim", handType: "Right", role: "Wicketkeeper", average: 42.0, strikeRate: 78.0, score: 85, bowlerType: "" },
+      { name: "Tamim Iqbal", handType: "Left", role: "Batsman", average: 44.0, strikeRate: 82.0, score: 95, bowlerType: "" },
+      { name: "Mahmudullah", handType: "Right", role: "Allrounder", average: 36.0, strikeRate: 85.0, score: 75, bowlerType: "Medium" },
+      { name: "Mustafizur Rahman", handType: "Left", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Mehidy Hasan", handType: "Right", role: "Allrounder", average: 28.0, strikeRate: 75.0, score: 60, bowlerType: "Spinner" },
+      { name: "Liton Das", handType: "Right", role: "Batsman", average: 40.0, strikeRate: 82.0, score: 80, bowlerType: "" },
+      { name: "Mosaddek Hossain", handType: "Right", role: "Allrounder", average: 32.0, strikeRate: 85.0, score: 60, bowlerType: "Medium" },
+      { name: "Nasum Ahmed", handType: "Left", role: "Bowler", average: 26.0, strikeRate: 0, score: 0, bowlerType: "Spinner" },
+      { name: "Taskin Ahmed", handType: "Right", role: "Bowler", average: 24.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Afif Hossain", handType: "Right", role: "Batsman", average: 36.0, strikeRate: 90.0, score: 65, bowlerType: "" }
+    ]
+  },
+  {
+    id: "afghanistan",
+    teamName: "Afghanistan",
+    coachName: "Jonathan Trott",
+    ranking: 10,
+    players: [
+      { name: "Rashid Khan", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Spinner" },
+      { name: "Mohammad Nabi", handType: "Right", role: "Allrounder", average: 35.0, strikeRate: 85.0, score: 60, bowlerType: "Medium" },
+      { name: "Hashmatullah Shahidi", handType: "Right", role: "Batsman", average: 40.0, strikeRate: 78.0, score: 80, bowlerType: "" },
+      { name: "Najibullah Zadran", handType: "Right", role: "Batsman", average: 38.0, strikeRate: 82.0, score: 70, bowlerType: "" },
+      { name: "Mujeeb Ur Rahman", handType: "Right", role: "Bowler", average: 23.0, strikeRate: 0, score: 0, bowlerType: "Spinner" },
+      { name: "Fareed Ahmad", handType: "Right", role: "Bowler", average: 22.0, strikeRate: 0, score: 0, bowlerType: "Fast" },
+      { name: "Ibrahim Zadran", handType: "Right", role: "Batsman", average: 36.0, strikeRate: 82.0, score: 65, bowlerType: "" },
+      { name: "Rashid Khan", handType: "Right", role: "Bowler", average: 25.0, strikeRate: 0, score: 0, bowlerType: "Spinner" },
+      { name: "Gulbadin Naib", handType: "Right", role: "Allrounder", average: 30.0, strikeRate: 85.0, score: 55, bowlerType: "Medium" },
+      { name: "Azmatullah Omarzai", handType: "Right", role: "Batsman", average: 34.0, strikeRate: 82.0, score: 60, bowlerType: "" },
+      { name: "Naveen-ul-Haq", handType: "Right", role: "Bowler", average: 21.0, strikeRate: 0, score: 0, bowlerType: "Fast" }
+    ]
+  }
+];
+
+runBtn.addEventListener("click", async () => {
+    logEl.textContent = "Starting...\n";
+
+    for (const team of teamsData) {
+      const teamRef = doc(db, "teams", team.id);
+      await setDoc(teamRef, {
+        teamName: team.teamName,
+        coachName: team.coachName,
+        ranking: team.ranking,
+        createdAt: Timestamp.now()
+      });
+      logEl.textContent += `Team ${team.teamName} added.\n`;
+
+      for (const [index, player] of team.players.entries()) {
+        const playerRef = doc(db, "teams", team.id, "players", `player${index+1}`);
+
+        let playerData = {
+          name: player.name,
+          handType: player.handType,
+          role: player.role,
+          createdAt: Timestamp.now()
+        };
+
+        switch (player.role) {
+          case "Batsman":
+            playerData.average = player.average;
+            playerData.strikeRate = player.strikeRate;
+            playerData.score = player.score;
+            break;
+
+          case "Bowler":
+            playerData.bowlerType = player.bowlerType;
+            playerData.wickets = player.wickets ?? 0;
+            break;
+
+          case "Allrounder":
+            playerData.average = player.average;
+            playerData.strikeRate = player.strikeRate;
+            playerData.score = player.score;
+            playerData.bowlerType = player.bowlerType;
+            playerData.wickets = player.wickets ?? 0;
+            break;
+
+          case "Wicketkeeper":
+            playerData.average = player.average;
+            playerData.strikeRate = player.strikeRate;
+            playerData.catches = player.catches ?? 0;
+            break;
+        }
+
+        await setDoc(playerRef, playerData);
+        logEl.textContent += `  Player ${player.name} added.\n`;
+      }
+    }
+
+    logEl.textContent += "\n All teams and players added with dynamic stats!";
+  });
+</script>
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    @ 2025 Cricket DB | Powered by Firebase 🔥
+  </footer>
+</body>
+</html>

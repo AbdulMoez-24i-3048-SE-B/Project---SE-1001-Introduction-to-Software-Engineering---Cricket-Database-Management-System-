@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Edit Player | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #editPlayerForm {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    #editPlayerForm label {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    #editPlayerForm input, #editPlayerForm select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      width: 100%;
+      box-sizing: border-box;
+      background: var(--bg-card);
+      color: var(--text);
+    }
+
+    #editPlayerForm button {
+      align-self: center;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #extraFields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="matchHistory.html">Match History</a>
+      <a href="credits.html">Credits</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Edit Player</h1>
+    <p style="color:var(--muted);margin-bottom:20px;">
+      Edit details of selected player below.
+    </p>
+    <form id="editPlayerForm">
+      <div>
+        <label for="playerName">Player Name:</label>
+        <input type="text" id="playerName" required>
+      </div>
+
+      <div>
+        <label for="handType">Hand Type:</label>
+        <select id="handType" required>
+          <option value="">Select hand</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="role">Role:</label>
+        <select id="role" required>
+          <option value="">Select role</option>
+          <option value="batsman">Batsman</option>
+          <option value="bowler">Bowler</option>
+          <option value="allrounder">All-Rounder</option>
+        </select>
+      </div>
+
+      <div id="extraFields"></div>
+
+      <button type="submit">Update Player</button>
+    </form>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    @ 2025 Cricket DB | Powered by Firebase 🔥
+  </footer>
+
+  <script type="module" src="js/edit-player.js"></script>
+</body>
+</html>

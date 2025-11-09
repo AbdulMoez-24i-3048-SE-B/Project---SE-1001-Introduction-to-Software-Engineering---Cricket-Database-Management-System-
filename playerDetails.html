@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Player Details | Cricket DB</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #playerDetails {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    }
+
+    .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    }
+
+    .detail-row:last-child {
+    border-bottom: none;
+    }
+
+    .detail-label {
+    font-weight: 600;
+    color: var(--muted);
+    flex: 1;
+    text-transform: capitalize;
+    }
+
+    .detail-value {
+    font-weight: 500;
+    flex: 1;
+    text-align: right;
+    text-transform: capitalize;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>🏏 Cricket DB</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Teams</a>
+      <a href="matchHistory.html">Match History</a>
+      <a href="credits.html">Credits</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Player Details</h1>
+    <p style="color:var(--muted);margin-bottom:20px;">
+      View details of selected player.
+    </p>
+    <div class="card" id="playerDetails"></div>
+  </main>
+
+  <footer style="text-align:center; color:var(--muted); padding:20px; border-top:1px solid var(--border);">
+    @ 2025 Cricket DB | Powered by Firebase 🔥
+  </footer>
+
+  <script type="module" src="js/player-details.js"></script>
+</body>
+</html>

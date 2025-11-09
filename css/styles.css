@@ -8,6 +8,11 @@
   --border: #334155;
   --primary-hover: #15d5d5;
 }
+    main {
+      padding: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 body {
   font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial;
   margin: 0;
